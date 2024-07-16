@@ -12,9 +12,42 @@ spec:
     listKind: UserList
     plural: users
     singular: user
-  scope: Namespaced
+  scope: Cluster
   versions:
-  - name: v1
+  - additionalPrinterColumns:
+    - description: keycloak uerid
+      jsonPath: .status.status
+      name: Status
+      type: boolean
+    - description: username
+      jsonPath: .spec.userName
+      name: 用户名
+      type: string
+    - description: gender
+      jsonPath: .spec.userGender
+      name: 性别
+      type: string
+    - description: nickname
+      jsonPath: .spec.nickName
+      name: 小名
+      type: string
+    - description: cellphone
+      jsonPath: .spec.userPhone
+      name: 电话
+      type: string
+    - description: createby
+      jsonPath: .spec.createBy
+      name: 创建人
+      type: string
+    - description: Email
+      jsonPath: .spec.userEmail
+      name: 邮箱
+      type: string
+    - description: 创建时间
+      jsonPath: .metadata.creationTimestamp
+      name: 创建时间
+      type: date
+    name: v1
     schema:
       openAPIV3Schema:
         description: User is the Schema for the users API
@@ -39,13 +72,43 @@ spec:
           spec:
             description: UserSpec defines the desired state of User
             properties:
-              foo:
+              createBy:
                 description: Foo is an example field of User. Edit user_types.go to
                   remove/update
                 type: string
+              createTime:
+                format: date-time
+                type: string
+              nickName:
+                type: string
+              status:
+                type: string
+              updateBy:
+                type: string
+              updateTime:
+                format: date-time
+                type: string
+              userEmail:
+                type: string
+              userGender:
+                type: string
+              userName:
+                type: string
+              userPhone:
+                type: string
+              userRoles:
+                items:
+                  type: string
+                type: array
             type: object
           status:
             description: UserStatus defines the observed state of User
+            properties:
+              status:
+                description: |-
+                  INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
+                  Important: Run "make" to regenerate code after modifying this file
+                type: boolean
             type: object
         type: object
     served: true

@@ -29,17 +29,37 @@ type UserSpec struct {
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of User. Edit user_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	CreateBy   string      `json:"createBy,omitempty"`
+	CreateTime metav1.Time `json:"createTime,omitempty"`
+	UpdateBy   string      `json:"updateBy,omitempty"`
+	UpdateTime metav1.Time `json:"updateTime,omitempty"`
+	Status     string      `json:"status,omitempty"`
+	UserName   string      `json:"userName,omitempty"`
+	UserGender string      `json:"userGender,omitempty"`
+	NickName   string      `json:"nickName,omitempty"`
+	UserPhone  string      `json:"userPhone,omitempty"`
+	UserEmail  string      `json:"userEmail,omitempty"`
+	UserRoles  []string    `json:"userRoles,omitempty"`
 }
 
 // UserStatus defines the observed state of User
 type UserStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Status bool `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Status",type="boolean",JSONPath=".status.status",description="keycloak uerid"
+// +kubebuilder:printcolumn:name="用户名",type="string",JSONPath=".spec.userName",description="username"
+// +kubebuilder:printcolumn:name="性别",type="string",JSONPath=".spec.userGender",description="gender"
+// +kubebuilder:printcolumn:name="小名",type="string",JSONPath=".spec.nickName",description="nickname"
+// +kubebuilder:printcolumn:name="电话",type="string",JSONPath=".spec.userPhone",description="cellphone"
+// +kubebuilder:printcolumn:name="创建人",type="string",JSONPath=".spec.createBy",description="createby"
+// +kubebuilder:printcolumn:name="邮箱",type="string",JSONPath=".spec.userEmail",description="Email"
+// +kubebuilder:printcolumn:name="创建时间",type="date",JSONPath=".metadata.creationTimestamp",description="创建时间"
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster
 
 // User is the Schema for the users API
 type User struct {
