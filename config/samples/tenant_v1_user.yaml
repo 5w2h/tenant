@@ -1,0 +1,9 @@
+apiVersion: tenant.lflxp.top/v1
+kind: User
+metadata:
+  labels:
+    app.kubernetes.io/name: tenant
+    app.kubernetes.io/managed-by: kustomize
+  name: user-sample
+spec:
+  # TODO(user): Add fields here
